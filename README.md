@@ -8,6 +8,10 @@ This project deploys **Vaultwarden** (an unofficial, lightweight Bitwarden-compa
 ---
 
 ## 2. Architecture & Backend Choices
+
+### Architecture Diagram
+![Architecture Diagram](images/architecture.png)
+
 - **Application:** Vaultwarden (Docker image: `vaultwarden/server:latest`).
 - **Database Backend:** **SQLite** (Default). 
   - *Why SQLite?* Vaultwarden uses SQLite by default. It is highly performant for small to medium teams, requires zero external database services (like PostgreSQL or MySQL), and is incredibly easy to back up (it is just a single file plus attachments).
@@ -18,6 +22,10 @@ This project deploys **Vaultwarden** (an unofficial, lightweight Bitwarden-compa
 ---
 
 ## 3. Security & Hardening (Acceptance Criteria)
+
+### Proof of Working Vaultwarden Client
+![Vaultwarden Login](images/Vault-login.png)
+
 - **Open Signups Disabled:** `SIGNUPS_ALLOWED=false`. Once the initial test account was created, signups were locked down. Attempting to create a new account via the web UI now fails.
 - **Admin Panel Disabled:** The `ADMIN_TOKEN` environment variable is intentionally **omitted**. Vaultwarden automatically disables the `/admin` page if no token is provided, returning a 404 error. This drastically reduces the attack surface.
 - **Secrets Management:** No secrets are stored in the Git repository or the `docker-compose.yml` file. Because the admin token is disabled, no token exists to leak. Any future environment variables should be stored in a local `.env` file (which is ignored by Git).
@@ -44,8 +52,7 @@ This project deploys **Vaultwarden** (an unofficial, lightweight Bitwarden-compa
 ---
 
 ## 6. Challenges Overcome (Nomad vs. Docker)
-The original task required deploying on **HashiCorp Nomad**. Initial attempts were made using a Nomad host volume (`vaultwarden-volume.hcl`) and a Docker job (`vaultwarden.nomad`). 
-However, a known scheduler bug in Nomad `-dev` mode caused sticky volume claims to fail (`Constraint "missing compatible host volumes"`). After rigorous troubleshooting, the architecture was pivoted to **Docker Compose** to ensure a stable, production-ready deployment within the WSL2 environment. 
+The original task required deploying on **HashiCorp Nomad**. Initial attempts were made using a Nomad host volume (`vaultwarden-volume.hcl`) and a Docker job (`vaultwarden.nomad`). However, a known scheduler bug in Nomad `-dev` mode caused sticky volume claims to fail (`Constraint "missing compatible host volumes"`). After rigorous troubleshooting, the architecture was pivoted to **Docker Compose** to ensure a stable, production-ready deployment within the WSL2 environment.
 
 ---
 
