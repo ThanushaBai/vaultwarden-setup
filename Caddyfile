@@ -1,0 +1,4 @@
+thanusha-vaultwarden.duckdns.org {
+    reverse_proxy /notifications/hub vaultwarden:3012
+    reverse_proxy vaultwarden:80
+}	

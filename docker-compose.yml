@@ -1,0 +1,13 @@
+services:
+  vaultwarden:
+    image: vaultwarden/server:latest
+    container_name: vaultwarden
+    restart: always
+    ports:
+      - "8080:80"
+    environment:
+      - WEBSOCKET_ENABLED=true
+      - DOMAIN=https://extras-san-prayers-unavailable.trycloudflare.com
+      - SIGNUPS_ALLOWED=false
+    volumes:
+      - ./vw-data:/data

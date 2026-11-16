@@ -1,0 +1,5 @@
+vw-data/
+vaultwarden-backups/
+caddy-data/
+caddy-config/
+.env
