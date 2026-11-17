@@ -52,6 +52,10 @@ This project deploys **Vaultwarden** (an unofficial, lightweight Bitwarden-compa
 ---
 
 ## 6. Challenges Overcome (Nomad vs. Docker)
+
+### Nomad & Consul Infrastructure Proof
+![Nomad and Consul Proof](images/nomad-consul-proof.png)
+
 The original task required deploying on **HashiCorp Nomad**. Initial attempts were made using a Nomad host volume (`vaultwarden-volume.hcl`) and a Docker job (`vaultwarden.nomad`). However, a known scheduler bug in Nomad `-dev` mode caused sticky volume claims to fail (`Constraint "missing compatible host volumes"`). After rigorous troubleshooting, the architecture was pivoted to **Docker Compose** to ensure a stable, production-ready deployment within the WSL2 environment.
 
 ---
