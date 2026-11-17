@@ -1,4 +1,4 @@
-# Vaultwarden Self-Hosted Deployment (Internship Task)
+# Vaultwarden Self-Hosted Deployment
 
 ## 1. Executive Summary
 This project deploys **Vaultwarden** (an unofficial, lightweight Bitwarden-compatible password manager) inside a Docker container on a WSL2 Ubuntu environment. The application is exposed securely to the internet using HTTPS via a Cloudflare Tunnel to bypass local ISP firewall restrictions. Data persistence, automated backups, and a successful restore process have been implemented and verified.
