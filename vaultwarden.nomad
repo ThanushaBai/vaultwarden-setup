@@ -5,17 +5,36 @@ job "vaultwarden" {
   group "vaultwarden" {
     count = 1
 
+    volume "data" {
+      type      = "host"
+      source    = "vaultwarden-data"
+      read_only = false
+    }
+
+    network {
+      port "http" {
+        static = 8080
+        to     = 80
+      }
+    }
+
     task "vaultwarden" {
-      driver = "raw_exec"
+      driver = "docker"
 
       config {
-        command = "/home/thanushabai/vaultwarden"
+        image = "vaultwarden/server:latest"
+        ports = ["http"]
+      }
+
+      volume_mount {
+        volume      = "data"
+        destination = "/data"
+        read_only   = false
       }
 
       env {
-        DATA_FOLDER       = "/home/thanushabai/vaultwarden-data"
-        DOMAIN            = "https://thanusha-vaultwarden.duckdns.org"
-        ROCKET_PORT       = "8080"
+        DATA_FOLDER       = "/data"
+        DOMAIN            = "https://extras-san-prayers-unavailable.trycloudflare.com"
         SIGNUPS_ALLOWED   = "true"
         WEBSOCKET_ENABLED = "true"
       }
